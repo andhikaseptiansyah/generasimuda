@@ -6,7 +6,6 @@
     <title>Berkarya Untuk Indonesia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,400;0,600;1,800;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
     
     <style>
@@ -14,9 +13,101 @@
         .font-cursive { font-family: 'Great Vibes', cursive; }
         .font-display { font-family: 'Montserrat', sans-serif; }
         .font-kalam { font-family: 'Kalam', cursive; }
+        
+        /* --- EFEK ANIMASI LOADING SCREEN PREMIUM --- */
+        @keyframes fadeOutLoader {
+            0% { opacity: 1; visibility: visible; }
+            99% { opacity: 0; visibility: hidden; }
+            100% { opacity: 0; display: none; z-index: -1; }
+        }
+        .loading-screen {
+            animation: fadeOutLoader 0.8s ease-in-out 2.2s forwards; 
+        }
+
+        @keyframes loadBar {
+            0% { width: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { width: 100%; opacity: 1; }
+        }
+        .animate-load-bar {
+            animation: loadBar 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+            50% { text-shadow: 0 0 25px rgba(255,255,255,0.8), 0 0 40px rgba(255, 255, 255, 0.6); }
+            100% { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        }
+        .animate-glow {
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        /* Animasi slide-up untuk konten Hero Section */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-entrance {
+            opacity: 0;
+            animation: slideUpFade 1s ease-out 2.4s forwards;
+        }
+        .animate-entrance-delay {
+            opacity: 0;
+            animation: slideUpFade 1s ease-out 2.7s forwards;
+        }
+
+        /* --- EFEK ANIMASI BURUNG --- */
+        /* Efek kedap kedip (opacity) */
+        @keyframes birdBlink {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.2; }
+        }
+        .animate-bird-blink {
+            animation: birdBlink 1.2s linear infinite;
+        }
+
+        /* Efek gerak-gerak/mengepak (scale + rotate) */
+        @keyframes birdFlap {
+            0%, 100% { transform: scaleY(1) rotate(0deg); }
+            20% { transform: scaleY(1.05) rotate(1deg); }
+            40% { transform: scaleY(1) rotate(0deg); }
+            60% { transform: scaleY(1.05) rotate(-1deg); }
+            80% { transform: scaleY(1) rotate(0deg); }
+        }
+        .animate-bird-flap {
+            animation: birdFlap 0.6s ease-in-out infinite;
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- SPLASH SCREEN / LOADING EFFECT DENGAN BACKGROUND IMAGE -->
+    <div class="loading-screen fixed inset-0 z-[999] flex flex-col items-center justify-center overflow-hidden">
+        
+        <!-- Background Image bgrn.png -->
+        <img src="bgrn.png" alt="Background Loading" class="absolute inset-0 w-full h-full object-cover z-0">
+        
+        <!-- Overlay transparan agar teks putih tetap terbaca elegan -->
+        <div class="absolute inset-0 bg-blue-900/30 backdrop-blur-[2px] z-0"></div>
+
+        <!-- Konten Utama Loading -->
+        <div class="relative z-10 flex flex-col items-center px-6">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-black italic text-white uppercase tracking-[0.15em] font-display animate-glow text-center drop-shadow-2xl">
+                Berkarya <br class="md:hidden"> Untuk Indonesia
+            </h1>
+            
+            <!-- Progress Bar Element -->
+            <div class="mt-10 flex flex-col items-center w-full max-w-md">
+                <div class="w-64 md:w-80 h-1.5 bg-white/20 rounded-full overflow-hidden relative shadow-inner backdrop-blur-sm">
+                    <div class="absolute top-0 left-0 h-full bg-white rounded-full animate-load-bar shadow-[0_0_15px_#FFFFFF]"></div>
+                </div>
+                <p class="mt-5 text-white text-xs md:text-sm font-semibold font-sans tracking-[0.3em] animate-pulse drop-shadow-md">
+                    MEMPERSIAPKAN KARYA...
+                </p>
+            </div>
+        </div>
+    </div>
 
     <main class="w-full overflow-hidden relative flex flex-col">
 
@@ -32,7 +123,8 @@
                 </span>
             </div>
 
-            <div class="text-center z-10 flex flex-col items-center w-full px-4 mt-16 md:mt-24">
+            <!-- TEKS HERO SECTION (DENGAN KELAS ANIMASI) -->
+            <div class="text-center z-10 flex flex-col items-center w-full px-4 mt-16 md:mt-24 animate-entrance">
                 
                 <h2 class="font-cursive text-4xl md:text-5xl text-white drop-shadow-md mb-2">Andhika Septiansyah</h2>
                 
@@ -50,7 +142,8 @@
                     </p>
                 </div>
 
-                <div class="mt-8 w-full max-w-4xl flex flex-col md:flex-row justify-between items-center gap-4 z-20 font-sans">
+                <!-- TOMBOL CTA HERO SECTION (DENGAN KELAS ANIMASI DELAY) -->
+                <div class="mt-8 w-full max-w-4xl flex flex-col md:flex-row justify-between items-center gap-4 z-20 font-sans animate-entrance-delay">
                     <a href="#tentang" class="bg-[#4AA6E3]/90 hover:bg-[#2C8DCF] text-white font-semibold py-3 px-10 md:px-12 rounded-full shadow-lg transition duration-300 border border-white/30 backdrop-blur-sm w-full md:w-auto text-center">
                         Pelajari Program
                     </a>
@@ -61,9 +154,10 @@
 
             </div>
 
-            <img src="burung atas.png" alt="Burung Terbang Kiri" class="hidden md:block absolute bottom-60 md:bottom-40 left-4 md:left-10 w-[300px] max-w-[90vw] md:w-[550px] z-10 opacity-90 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-bottom-left">
+            <!-- GAMBAR BURUNG DENGAN ANIMASI -->
+            <img src="burung atas.png" alt="Burung Terbang Kiri" class="hidden md:block absolute bottom-60 md:bottom-40 left-4 md:left-10 w-[300px] max-w-[90vw] md:w-[550px] z-10 opacity-90 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-bottom-left animate-bird-blink">
 
-            <img src="burung bawah.png" alt="Burung Terbang Kanan" class="hidden md:block absolute top-24 md:top-12 right-4 md:right-16 w-64 md:w-[450px] z-10 opacity-80 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-top-right">
+            <img src="burung bawah.png" alt="Burung Terbang Kanan" class="hidden md:block absolute top-24 md:top-12 right-4 md:right-16 w-64 md:w-[450px] z-10 opacity-80 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-top-right animate-bird-flap">
 
         </section>
 
