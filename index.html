@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berkarya Untuk Indonesia</title>
+    
+    <meta name="description" content="Landing page Mahreen Indonesia: Mengajak generasi muda berkarya untuk Indonesia melalui inovasi teknologi dan kreativitas.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:ital,wght@0,400;0,600;1,800;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         .font-cursive { font-family: 'Great Vibes', cursive; }
         .font-display { font-family: 'Montserrat', sans-serif; }
         .font-kalam { font-family: 'Kalam', cursive; }
         
-        /* --- EFEK ANIMASI LOADING SCREEN PREMIUM --- */
-        @keyframes fadeOutLoader {
-            0% { opacity: 1; visibility: visible; }
-            99% { opacity: 0; visibility: hidden; }
-            100% { opacity: 0; display: none; z-index: -1; }
-        }
+        /* --- OPTIMASI LOADING SCREEN --- */
         .loading-screen {
-            animation: fadeOutLoader 0.8s ease-in-out 2.2s forwards; 
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
         }
 
         @keyframes loadBar {
@@ -30,7 +28,7 @@
             100% { width: 100%; opacity: 1; }
         }
         .animate-load-bar {
-            animation: loadBar 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: loadBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes textGlow {
@@ -42,31 +40,28 @@
             animation: textGlow 2s ease-in-out infinite;
         }
 
-        /* Animasi slide-up untuk konten Hero Section */
+        /* --- ANIMASI HERO SECTION --- */
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-entrance {
-            opacity: 0;
-            animation: slideUpFade 1s ease-out 2.4s forwards;
+        .animate-entrance { opacity: 0; }
+        .animate-entrance-delay { opacity: 0; }
+        
+        .page-ready .animate-entrance {
+            animation: slideUpFade 1s ease-out forwards;
         }
-        .animate-entrance-delay {
-            opacity: 0;
-            animation: slideUpFade 1s ease-out 2.7s forwards;
+        .page-ready .animate-entrance-delay {
+            animation: slideUpFade 1s ease-out 0.3s forwards;
         }
 
-        /* --- EFEK ANIMASI BURUNG --- */
-        /* Efek kedap kedip (opacity) */
+        /* --- EFEK BURUNG --- */
         @keyframes birdBlink {
             0%, 100% { opacity: 0.9; }
             50% { opacity: 0.2; }
         }
-        .animate-bird-blink {
-            animation: birdBlink 1.2s linear infinite;
-        }
+        .animate-bird-blink { animation: birdBlink 1.2s linear infinite; }
 
-        /* Efek gerak-gerak/mengepak (scale + rotate) */
         @keyframes birdFlap {
             0%, 100% { transform: scaleY(1) rotate(0deg); }
             20% { transform: scaleY(1.05) rotate(1deg); }
@@ -74,30 +69,74 @@
             60% { transform: scaleY(1.05) rotate(-1deg); }
             80% { transform: scaleY(1) rotate(0deg); }
         }
-        .animate-bird-flap {
-            animation: birdFlap 0.6s ease-in-out infinite;
+        .animate-bird-flap { animation: birdFlap 0.6s ease-in-out infinite; }
+
+        /* --- ANIMASI SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
         }
 
+        .reveal.active, .reveal-zoom.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* --- ANIMASI BUTTON KILAUAN CAHAYA --- */
+        .btn-hover-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hover-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%; 
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(25deg);
+            transition: all 0.6s ease-in-out;
+            z-index: 10;
+        }
+
+        .btn-hover-effect:hover::after {
+            left: 150%; 
+        }
+
+        /* --- FITUR SCROLLBAR HIDDEN (UNTUK CAROUSEL) --- */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-    <!-- SPLASH SCREEN / LOADING EFFECT DENGAN BACKGROUND IMAGE -->
     <div class="loading-screen fixed inset-0 z-[999] flex flex-col items-center justify-center overflow-hidden">
-        
-        <!-- Background Image bgrn.png -->
         <img src="bgrn.png" alt="Background Loading" class="absolute inset-0 w-full h-full object-cover z-0">
-        
-        <!-- Overlay transparan agar teks putih tetap terbaca elegan -->
         <div class="absolute inset-0 bg-blue-900/30 backdrop-blur-[2px] z-0"></div>
 
-        <!-- Konten Utama Loading -->
         <div class="relative z-10 flex flex-col items-center px-6">
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-black italic text-white uppercase tracking-[0.15em] font-display animate-glow text-center drop-shadow-2xl">
                 Berkarya <br class="md:hidden"> Untuk Indonesia
             </h1>
             
-            <!-- Progress Bar Element -->
             <div class="mt-10 flex flex-col items-center w-full max-w-md">
                 <div class="w-64 md:w-80 h-1.5 bg-white/20 rounded-full overflow-hidden relative shadow-inner backdrop-blur-sm">
                     <div class="absolute top-0 left-0 h-full bg-white rounded-full animate-load-bar shadow-[0_0_15px_#FFFFFF]"></div>
@@ -111,27 +150,20 @@
 
     <main class="w-full overflow-hidden relative flex flex-col">
 
-        <!-- HERO SECTION -->
         <section class="relative w-full h-screen min-h-[600px] overflow-hidden flex flex-col items-center justify-center font-display">
-            
             <img src="bgrn.png" alt="Background Langit" class="absolute inset-0 w-full h-full object-cover -z-20">
 
-            <!-- BADGE INOVASI TEKNOLOGI -->
             <div class="absolute top-6 w-auto max-w-[95%] bg-white/20 backdrop-blur-md border border-white/40 rounded-full py-2.5 md:py-3 px-5 md:px-8 flex justify-center items-center shadow-sm z-20">
                 <span class="text-white font-semibold text-sm sm:text-base md:text-xl drop-shadow-md whitespace-nowrap">
                     Inovasi Teknologi untuk Negeri
                 </span>
             </div>
 
-            <!-- TEKS HERO SECTION (DENGAN KELAS ANIMASI) -->
             <div class="text-center z-10 flex flex-col items-center w-full px-4 mt-16 md:mt-24 animate-entrance">
-                
                 <h2 class="font-cursive text-4xl md:text-5xl text-white drop-shadow-md mb-2">Andhika Septiansyah</h2>
-                
                 <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black italic text-white uppercase drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] tracking-tight leading-tight mb-2">
                     WAKTUNYA GENERASI MUDA
                 </h1>
-                
                 <p class="text-lg md:text-2xl font-medium text-white uppercase drop-shadow-md tracking-widest mt-2">
                     BERKARYA UNTUK INDONESIA
                 </p>
@@ -142,30 +174,24 @@
                     </p>
                 </div>
 
-                <!-- TOMBOL CTA HERO SECTION (DENGAN KELAS ANIMASI DELAY) -->
                 <div class="mt-8 w-full max-w-4xl flex flex-col md:flex-row justify-between items-center gap-4 z-20 font-sans animate-entrance-delay">
-                    <a href="#tentang" class="bg-[#4AA6E3]/90 hover:bg-[#2C8DCF] text-white font-semibold py-3 px-10 md:px-12 rounded-full shadow-lg transition duration-300 border border-white/30 backdrop-blur-sm w-full md:w-auto text-center">
+                    <a href="#tentang" aria-label="Pelajari lebih lanjut tentang deskripsi program" class="btn-hover-effect bg-[#4AA6E3]/90 hover:bg-[#2C8DCF] text-white font-semibold py-3 px-10 md:px-12 rounded-full shadow-lg border border-white/30 backdrop-blur-sm w-full md:w-auto text-center transform hover:-translate-y-1 hover:scale-105 hover:shadow-[0_0_25px_rgba(74,166,227,0.6)] active:scale-95 transition-all duration-300">
                         Pelajari Program
                     </a>
-                    <a href="#cta" class="bg-[#4AA6E3]/90 hover:bg-[#2C8DCF] text-white font-semibold py-3 px-10 md:px-12 rounded-full shadow-lg transition duration-300 border border-white/30 backdrop-blur-sm w-full md:w-auto text-center">
+                    <a href="#cta" aria-label="Navigasi langsung menuju formulir kontribusi pendaftaran" class="btn-hover-effect bg-[#4AA6E3]/90 hover:bg-[#2C8DCF] text-white font-semibold py-3 px-10 md:px-12 rounded-full shadow-lg border border-white/30 backdrop-blur-sm w-full md:w-auto text-center transform hover:-translate-y-1 hover:scale-105 hover:shadow-[0_0_25px_rgba(74,166,227,0.6)] active:scale-95 transition-all duration-300">
                         Mulai Berkontribusi
                     </a>
                 </div>
-
             </div>
 
-            <!-- GAMBAR BURUNG DENGAN ANIMASI -->
-            <img src="burung atas.png" alt="Burung Terbang Kiri" class="hidden md:block absolute bottom-60 md:bottom-40 left-4 md:left-10 w-[300px] max-w-[90vw] md:w-[550px] z-10 opacity-90 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-bottom-left animate-bird-blink">
-
-            <img src="burung bawah.png" alt="Burung Terbang Kanan" class="hidden md:block absolute top-24 md:top-12 right-4 md:right-16 w-64 md:w-[450px] z-10 opacity-80 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-top-right animate-bird-flap">
-
+            <img src="burung-atas.png" alt="Burung Terbang Kiri" class="hidden md:block absolute bottom-60 md:bottom-40 left-4 md:left-10 w-[300px] max-w-[90vw] md:w-[550px] z-10 opacity-90 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-bottom-left animate-bird-blink">
+            <img src="burung-bawah.png" alt="Burung Terbang Kanan" class="hidden md:block absolute top-24 md:top-12 right-4 md:right-16 w-64 md:w-[450px] z-10 opacity-80 drop-shadow-md hover:scale-105 transition-transform duration-500 origin-top-right animate-bird-flap">
         </section>
 
-        <!-- TENTANG PROGRAM SECTION -->
-        <section id="tentang" class="py-24 md:py-32 bg-slate-50 font-sans">
-            <div class="max-w-[90rem] mx-auto px-6">
+        <section id="tentang" class="pt-12 pb-10 md:pt-16 md:pb-12 bg-slate-50 font-sans">
+            <div class="max-w-[90rem] mx-auto px-6 md:px-12 lg:px-16">
                 
-                <div class="flex flex-col items-center text-center mb-16 md:mb-24">
+                <div class="flex flex-col items-center text-center mb-10 md:mb-16 reveal">
                     <h2 class="text-4xl lg:text-5xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-[#0F172A] via-[#1E3A8A] to-[#4AA6E3] mb-5 drop-shadow-sm">
                         Tentang Program
                     </h2>
@@ -175,11 +201,9 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 lg:gap-12 mt-10">
-
-                    <!-- CARD 1 -->
-                    <div class="relative w-full h-full flex">
-                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 lg:gap-12 mt-4 md:mt-6">
+                    <div class="relative w-full h-full flex reveal delay-100">
+                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
                             <div class="bg-[#D1EDFA] rounded-[1.5rem] p-6 pb-24 md:pb-32 relative overflow-hidden h-full flex flex-col">
                                 <div class="absolute -left-10 top-0 w-28 h-28 bg-white/90 rounded-full"></div>
                                 <div class="absolute left-2 -top-10 w-32 h-32 bg-white/90 rounded-full"></div>
@@ -197,9 +221,8 @@
                         <img src="brain.png" alt="Ilustrasi Kreativitas" class="absolute -right-4 -bottom-8 md:-bottom-12 w-32 md:w-40 lg:w-48 object-contain drop-shadow-2xl z-20 hover:scale-105 transition-transform duration-500 origin-bottom right">
                     </div>
 
-                    <!-- CARD 2 -->
-                    <div class="relative w-full h-full flex">
-                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full">
+                    <div class="relative w-full h-full flex reveal delay-200">
+                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
                             <div class="bg-[#D1EDFA] rounded-[1.5rem] p-6 pb-24 md:pb-32 relative overflow-hidden h-full flex flex-col">
                                 <div class="absolute -left-10 top-0 w-28 h-28 bg-white/90 rounded-full"></div>
                                 <div class="absolute left-2 -top-10 w-32 h-32 bg-white/90 rounded-full"></div>
@@ -217,9 +240,8 @@
                         <img src="laptop.png" alt="Ilustrasi Laptop" class="absolute -right-4 -bottom-8 md:-bottom-12 w-36 md:w-44 lg:w-[220px] object-contain drop-shadow-2xl z-20 hover:scale-105 transition-transform duration-500 origin-bottom right">
                     </div>
 
-                    <!-- CARD 3 -->
-                    <div class="relative w-full h-full flex">
-                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full">
+                    <div class="relative w-full h-full flex reveal delay-300">
+                        <div class="bg-[#99D5F3] p-2 md:p-3 rounded-[2rem] shadow-lg relative w-full h-full hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
                             <div class="bg-[#D1EDFA] rounded-[1.5rem] p-6 pb-24 md:pb-32 relative overflow-hidden h-full flex flex-col">
                                 <div class="absolute -left-10 top-0 w-28 h-28 bg-white/90 rounded-full"></div>
                                 <div class="absolute left-2 -top-10 w-32 h-32 bg-white/90 rounded-full"></div>
@@ -241,10 +263,157 @@
             </div>
         </section>
 
-        <!-- CTA SECTION -->
-        <section id="cta" class="pt-32 md:pt-48 bg-slate-50 font-display flex flex-col items-center overflow-visible">
+        <section id="testimonial" class="pt-12 bg-slate-50 font-sans overflow-hidden z-0 flex flex-col">
             
-            <div class="relative w-full h-[400px] md:h-[450px] rounded-t-[3rem] md:rounded-t-[5rem] rounded-b-none mt-10">
+            <div class="max-w-[90rem] mx-auto px-6 md:px-12 lg:px-16 text-center mb-4 reveal">
+                <h2 class="text-3xl md:text-5xl lg:text-[3.5rem] font-black italic uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#0F172A] via-[#1E3A8A] to-[#2C8DCF] tracking-wide font-display leading-tight">
+                    APA KATA MEREKA TENTANG <br class="hidden md:block"> MAHREEN INDONESIA?
+                </h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-[#4AA6E3] to-blue-200 rounded-full mx-auto mt-4"></div>
+            </div>
+
+            <div class="relative w-full bg-[#4AA6E3] pt-10 md:pt-14 pb-0 mt-12 md:mt-16">
+                
+                <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform -translate-y-[99%]">
+                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="relative block w-full h-[40px] md:h-[80px] text-[#4AA6E3] fill-current">
+                        <path d="M0,64C288,128,576,128,864,64C1152,0,1440,0,1440,0L1440,120L0,120Z"></path>
+                    </svg>
+                </div>
+
+                <div class="max-w-[90rem] mx-auto px-2 sm:px-6 md:px-12 lg:px-16">
+                    <div class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 md:pb-8 reveal delay-100">
+                        
+                        <div class="relative flex-shrink-0 w-[90%] sm:w-[85%] md:w-1/2 lg:w-1/3 snap-start px-4 md:px-6 pt-10 md:pt-12 pb-4">
+                            <div class="relative w-full h-full rounded-[1.5rem] shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                                <div class="absolute inset-0 rounded-[1.5rem] overflow-hidden z-0">
+                                    <img src="bgrn.png" alt="Background Card" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-white/85 backdrop-blur-[1px]"></div>
+                                </div>
+                                
+                                <div class="absolute -top-10 -left-3 md:-top-12 md:-left-5 w-[5rem] h-[5rem] md:w-[6rem] md:h-[6rem] bg-[#F59E0B] rounded-full border-[4px] border-white shadow-md overflow-hidden flex items-end justify-center z-20">
+                                    <svg viewBox="0 0 100 100" class="w-[85%] h-[85%]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 60C61.0457 60 70 51.0457 70 40C70 28.9543 61.0457 20 50 20C38.9543 20 30 28.9543 30 40C30 51.0457 38.9543 60 50 60Z" fill="#FCD3B6"/><path d="M50 20C40 20 35 25 35 35C35 35 30 35 30 40C30 40 32 25 50 20Z" fill="#111111"/><path d="M30 90 C30 70, 40 60, 50 60 C60 60, 70 70, 70 90 Z" fill="#6B4B3A"/><path d="M40 90 L40 70 L60 70 L60 90 Z" fill="#FFFFFF"/></svg>
+                                </div>
+                                
+                                <div class="relative z-10 flex flex-col h-full p-6 md:p-8 lg:p-10 pb-20 md:pb-24">
+                                    <div class="ml-[4rem] md:ml-[5rem] mb-4 md:mb-6 mt-1 md:mt-0">
+                                        <h3 class="text-[1.5rem] md:text-[1.8rem] lg:text-[2rem] text-black font-kalam leading-tight">Andhika Septiansyah</h3>
+                                        <p class="text-xs md:text-sm text-slate-600 font-semibold mt-1">Web Developer Applicant</p>
+                                    </div>
+                                    <p class="text-sm md:text-base lg:text-lg text-slate-800 leading-relaxed font-medium">
+                                        "Mahreen Indonesia memberikan wadah luar biasa bagi talenta digital. Di sini, kita tidak hanya sekadar menulis baris kode, tetapi membangun sistem yang membawa dampak sosial yang positif bagi masyarakat."
+                                    </p>
+                                    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-black drop-shadow-md">
+                                        <svg class="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex-shrink-0 w-[90%] sm:w-[85%] md:w-1/2 lg:w-1/3 snap-start px-4 md:px-6 pt-10 md:pt-12 pb-4">
+                            <div class="relative w-full h-full rounded-[1.5rem] shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                                <div class="absolute inset-0 rounded-[1.5rem] overflow-hidden z-0">
+                                    <img src="bgrn.png" alt="Background Card" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-white/85 backdrop-blur-[1px]"></div>
+                                </div>
+                                <div class="absolute -top-10 -left-3 md:-top-12 md:-left-5 w-[5rem] h-[5rem] md:w-[6rem] md:h-[6rem] bg-[#F59E0B] rounded-full border-[4px] border-white shadow-md overflow-hidden flex items-end justify-center z-20">
+                                    <svg viewBox="0 0 100 100" class="w-[85%] h-[85%]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 60C61.0457 60 70 51.0457 70 40C70 28.9543 61.0457 20 50 20C38.9543 20 30 28.9543 30 40C30 51.0457 38.9543 60 50 60Z" fill="#FCD3B6"/><path d="M50 20C40 20 35 25 35 35C35 35 30 35 30 40C30 40 32 25 50 20Z" fill="#111111"/><path d="M30 90 C30 70, 40 60, 50 60 C60 60, 70 70, 70 90 Z" fill="#6B4B3A"/><path d="M40 90 L40 70 L60 70 L60 90 Z" fill="#FFFFFF"/></svg>
+                                </div>
+                                <div class="relative z-10 flex flex-col h-full p-6 md:p-8 lg:p-10 pb-20 md:pb-24">
+                                    <div class="ml-[4rem] md:ml-[5rem] mb-4 md:mb-6 mt-1 md:mt-0">
+                                        <h3 class="text-[1.5rem] md:text-[1.8rem] lg:text-[2rem] text-black font-kalam leading-tight">Generasi Inovatif</h3>
+                                        <p class="text-xs md:text-sm text-slate-600 font-semibold mt-1">Pemuda Indonesia</p>
+                                    </div>
+                                    <p class="text-sm md:text-base lg:text-lg text-slate-800 leading-relaxed font-medium">
+                                        "Visi 'Berkarya Untuk Indonesia' benar-benar terasa nyata. Menggabungkan kreativitas desain UI/UX dan keandalan sistem backend untuk menyelesaikan tantangan di era digital adalah pengalaman yang sangat inspiratif."
+                                    </p>
+                                    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-black drop-shadow-md">
+                                        <svg class="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex-shrink-0 w-[90%] sm:w-[85%] md:w-1/2 lg:w-1/3 snap-start px-4 md:px-6 pt-10 md:pt-12 pb-4">
+                            <div class="relative w-full h-full rounded-[1.5rem] shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                                <div class="absolute inset-0 rounded-[1.5rem] overflow-hidden z-0">
+                                    <img src="bgrn.png" alt="Background Card" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-white/85 backdrop-blur-[1px]"></div>
+                                </div>
+                                <div class="absolute -top-10 -left-3 md:-top-12 md:-left-5 w-[5rem] h-[5rem] md:w-[6rem] md:h-[6rem] bg-[#F59E0B] rounded-full border-[4px] border-white shadow-md overflow-hidden flex items-end justify-center z-20">
+                                    <svg viewBox="0 0 100 100" class="w-[85%] h-[85%]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 60C61.0457 60 70 51.0457 70 40C70 28.9543 61.0457 20 50 20C38.9543 20 30 28.9543 30 40C30 51.0457 38.9543 60 50 60Z" fill="#FCD3B6"/><path d="M50 20C40 20 35 25 35 35C35 35 30 35 30 40C30 40 32 25 50 20Z" fill="#111111"/><path d="M30 90 C30 70, 40 60, 50 60 C60 60, 70 70, 70 90 Z" fill="#6B4B3A"/><path d="M40 90 L40 70 L60 70 L60 90 Z" fill="#FFFFFF"/></svg>
+                                </div>
+                                <div class="relative z-10 flex flex-col h-full p-6 md:p-8 lg:p-10 pb-20 md:pb-24">
+                                    <div class="ml-[4rem] md:ml-[5rem] mb-4 md:mb-6 mt-1 md:mt-0">
+                                        <h3 class="text-[1.5rem] md:text-[1.8rem] lg:text-[2rem] text-black font-kalam leading-tight">Budi Santoso</h3>
+                                        <p class="text-xs md:text-sm text-slate-600 font-semibold mt-1">Mahasiswa Teknologi</p>
+                                    </div>
+                                    <p class="text-sm md:text-base lg:text-lg text-slate-800 leading-relaxed font-medium">
+                                        "Lingkungan kolaboratif yang didorong oleh Mahreen Indonesia memacu saya untuk berkreasi di luar batas. Ini bukan sekadar program, tapi langkah awal menuju kontribusi nyata untuk negeri."
+                                    </p>
+                                    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-black drop-shadow-md">
+                                        <svg class="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex-shrink-0 w-[90%] sm:w-[85%] md:w-1/2 lg:w-1/3 snap-start px-4 md:px-6 pt-10 md:pt-12 pb-4">
+                            <div class="relative w-full h-full rounded-[1.5rem] shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                                <div class="absolute inset-0 rounded-[1.5rem] overflow-hidden z-0">
+                                    <img src="bgrn.png" alt="Background Card" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-white/85 backdrop-blur-[1px]"></div>
+                                </div>
+                                <div class="absolute -top-10 -left-3 md:-top-12 md:-left-5 w-[5rem] h-[5rem] md:w-[6rem] md:h-[6rem] bg-[#F59E0B] rounded-full border-[4px] border-white shadow-md overflow-hidden flex items-end justify-center z-20">
+                                    <svg viewBox="0 0 100 100" class="w-[85%] h-[85%]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 60C61.0457 60 70 51.0457 70 40C70 28.9543 61.0457 20 50 20C38.9543 20 30 28.9543 30 40C30 51.0457 38.9543 60 50 60Z" fill="#FCD3B6"/><path d="M50 20C40 20 35 25 35 35C35 35 30 35 30 40C30 40 32 25 50 20Z" fill="#111111"/><path d="M30 90 C30 70, 40 60, 50 60 C60 60, 70 70, 70 90 Z" fill="#6B4B3A"/><path d="M40 90 L40 70 L60 70 L60 90 Z" fill="#FFFFFF"/></svg>
+                                </div>
+                                <div class="relative z-10 flex flex-col h-full p-6 md:p-8 lg:p-10 pb-20 md:pb-24">
+                                    <div class="ml-[4rem] md:ml-[5rem] mb-4 md:mb-6 mt-1 md:mt-0">
+                                        <h3 class="text-[1.5rem] md:text-[1.8rem] lg:text-[2rem] text-black font-kalam leading-tight">Siti Aminah</h3>
+                                        <p class="text-xs md:text-sm text-slate-600 font-semibold mt-1">Digital Kreator</p>
+                                    </div>
+                                    <p class="text-sm md:text-base lg:text-lg text-slate-800 leading-relaxed font-medium">
+                                        "Saya belajar bahwa merancang halaman web bukan sekadar estetika, melainkan memastikan pesan 'Berkarya Untuk Indonesia' tersampaikan dengan kuat ke hati setiap pengunjung."
+                                    </p>
+                                    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-black drop-shadow-md">
+                                        <svg class="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex-shrink-0 w-[90%] sm:w-[85%] md:w-1/2 lg:w-1/3 snap-start px-4 md:px-6 pt-10 md:pt-12 pb-4">
+                            <div class="relative w-full h-full rounded-[1.5rem] shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                                <div class="absolute inset-0 rounded-[1.5rem] overflow-hidden z-0">
+                                    <img src="bgrn.png" alt="Background Card" class="absolute inset-0 w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-white/85 backdrop-blur-[1px]"></div>
+                                </div>
+                                <div class="absolute -top-10 -left-3 md:-top-12 md:-left-5 w-[5rem] h-[5rem] md:w-[6rem] md:h-[6rem] bg-[#F59E0B] rounded-full border-[4px] border-white shadow-md overflow-hidden flex items-end justify-center z-20">
+                                    <svg viewBox="0 0 100 100" class="w-[85%] h-[85%]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 60C61.0457 60 70 51.0457 70 40C70 28.9543 61.0457 20 50 20C38.9543 20 30 28.9543 30 40C30 51.0457 38.9543 60 50 60Z" fill="#FCD3B6"/><path d="M50 20C40 20 35 25 35 35C35 35 30 35 30 40C30 40 32 25 50 20Z" fill="#111111"/><path d="M30 90 C30 70, 40 60, 50 60 C60 60, 70 70, 70 90 Z" fill="#6B4B3A"/><path d="M40 90 L40 70 L60 70 L60 90 Z" fill="#FFFFFF"/></svg>
+                                </div>
+                                <div class="relative z-10 flex flex-col h-full p-6 md:p-8 lg:p-10 pb-20 md:pb-24">
+                                    <div class="ml-[4rem] md:ml-[5rem] mb-4 md:mb-6 mt-1 md:mt-0">
+                                        <h3 class="text-[1.5rem] md:text-[1.8rem] lg:text-[2rem] text-black font-kalam leading-tight">Reza Rahadian</h3>
+                                        <p class="text-xs md:text-sm text-slate-600 font-semibold mt-1">Tech Enthusiast</p>
+                                    </div>
+                                    <p class="text-sm md:text-base lg:text-lg text-slate-800 leading-relaxed font-medium">
+                                        "Sistem dan lingkungan yang sangat terstruktur! Mahreen Indonesia membuktikan bahwa perusahaan lokal bisa bersaing secara global sambil tetap memberikan dampak yang besar."
+                                    </p>
+                                    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-black drop-shadow-md">
+                                        <svg class="w-12 h-12 md:w-16 md:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+<br>
+<br>
+        <section id="cta" class="pt-16 md:pt-24 bg-slate-50 font-display flex flex-col items-center overflow-visible reveal-zoom">
+            
+            <div class="relative w-full h-[400px] md:h-[450px] rounded-t-[3rem] md:rounded-t-[5rem] rounded-b-none">
                 
                 <div class="absolute inset-0 rounded-t-[3rem] md:rounded-t-[5rem] rounded-b-none overflow-hidden z-0">
                     <img src="bgrn.png" alt="Background CTA" class="w-full h-full object-cover">
@@ -257,7 +426,7 @@
 
                 <div class="absolute bottom-6 md:bottom-10 w-full flex flex-col items-center z-20 px-4 md:px-16 font-sans">
                     
-                    <a href="https://bit.ly/FormTestPsikotestMahreenIndonesia" target="_blank" class="bg-[#4AA6E3] hover:bg-[#2C8DCF] text-white font-semibold py-3 md:py-4 px-10 md:px-14 rounded-full shadow-lg transition duration-300 border border-white/20 backdrop-blur-md text-lg md:text-xl mb-4 md:mb-6">
+                    <a href="https://bit.ly/FormTestPsikotestMahreenIndonesia" target="_blank" aria-label="Buka formulir pendaftaran kompetensi dan psikotes Mahreen Indonesia di tab baru" class="btn-hover-effect bg-[#4AA6E3] hover:bg-[#2C8DCF] text-white font-semibold py-3 md:py-4 px-10 md:px-14 rounded-full shadow-lg border border-white/20 backdrop-blur-md text-lg md:text-xl mb-4 md:mb-6 transform hover:-translate-y-1 hover:scale-105 hover:shadow-[0_0_25px_rgba(74,166,227,0.6)] active:scale-95 transition-all duration-300">
                         Mulai Berkontribusi
                     </a>
 
@@ -274,5 +443,46 @@
 
     </main>
 
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0); 
+            const loader = document.querySelector('.loading-screen');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+                setTimeout(() => {
+                    document.body.classList.add('page-ready');
+                }, 200);
+            }, 600);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-zoom');
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const scrollObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                scrollObserver.observe(reveal);
+            });
+        });
+    </script>
 </body>
 </html>
